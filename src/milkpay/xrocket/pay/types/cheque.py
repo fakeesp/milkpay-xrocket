@@ -1,9 +1,8 @@
-from typing import Union
+from typing import Union, Optional
 
 from pydantic import Field
 
 from .base import PayXRocketObject
-from .set import Set
 from .tg_resource import TgResource
 
 
@@ -17,9 +16,9 @@ class Cheque(PayXRocketObject):
     """Amount of cheque per user"""
     users: Union[int, float]
     """Number of users that can activate your cheque"""
-    password: str
+    password: Optional[str] = None
     """Cheque password"""
-    description: str
+    description: Optional[str] = None
     """Cheque description"""
     send_notifications: bool = Field(alias="sendNotifications")
     """send notifications about cheque activation to application cheque webhook or not"""
@@ -37,7 +36,7 @@ class Cheque(PayXRocketObject):
     """How many times cheque is activated"""
     ref_rewards: Union[int, float] = Field(alias="refRewards")
     """How many times referral reward is payed"""
-    disabled_languages: Set = Field(alias="disabledLanguages")
+    disabled_languages: list[str] = Field(alias="disabledLanguages")
     """Disable languages"""
     for_premium: bool = Field(alias="forPremium")
     """Only users with Telegram Premium can activate this cheque"""
